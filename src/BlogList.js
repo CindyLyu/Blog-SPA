@@ -21,11 +21,11 @@ class BlogList extends Component {
       });
   }
 
-  handleToArticle = (e) => {
+  handleToArticle = (id) => {
     const { toArticle } = this.props;
     toArticle({
       active: 'article',
-      id: e.target.getAttribute('id'),
+      id,
     });
   }
 
@@ -39,7 +39,7 @@ class BlogList extends Component {
             文章列表
         </div>
         {
-          post.map(item => <option className="blog__list-aritcle" key={item.id} id={item.id} onClick={this.handleToArticle}>{item.title}</option>)
+          post.map(item => <option className="blog__list-aritcle" key={item.id} onClick={() => this.handleToArticle(item.id)}>{item.title}</option>)
         }
       </section>
     );

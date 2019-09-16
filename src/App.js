@@ -24,6 +24,10 @@ class App extends Component {
     window.addEventListener('hashchange', this._onHashChange);
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('hashchange', this._onHashChange);
+  }
+
   _onHashChange = () => {
     this.setState({
       active: window.location.hash,

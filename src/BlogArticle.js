@@ -13,11 +13,11 @@ class BlogArticle extends Component {
 
   componentDidMount() {
     const { data } = this.props;
-    fetch('https://jsonplaceholder.typicode.com/posts', { method: 'get' })
+    fetch(`https://jsonplaceholder.typicode.com/posts/${data}`, { method: 'get' })
       .then(response => response.json())
-      .then((result) => {
+      .then(result => {
         this.setState({
-          post: result[data - 1],
+          post: result,
         });
       });
   }
@@ -26,7 +26,7 @@ class BlogArticle extends Component {
     const { post } = this.state;
     return (
       <section className="blog__article">
-        <div className="blog__article-title">{post.title}</div>
+        <div className="blog__article-title">{!post.title ? 'Loading...' : post.title}</div>
         <div className="blog__article-content">{post.body}</div>
       </section>
 
