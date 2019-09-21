@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 function App() {
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
         <main className="blog">
           <nav className="blog__nav">
             <Link className="blog__nav-name" to='/' exact='true'>LYU</Link>
