@@ -8,17 +8,18 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 function App() {
   return (
-    <Router basename={process.env.PUBLIC_URL}>
+    <Router>
         <main className="blog">
           <nav className="blog__nav">
             <Link className="blog__nav-name" to='/' exact='true'>LYU</Link>
             <Link className="blog__nav-list" to='/post' exact='true'>List</Link>
             <Link className="blog__nav-about" to='/about'>About</Link>
           </nav>
-          <Route exact path='/' component={BlogList} />
-          <Route exact path='/post' component={BlogList} />
-          <Route path='/about' component={BlogAbout} />
-          <Route path='/post/:postId' component={BlogArticle} />
+          <Route exact path='Blog-SPA' component={BlogList} />
+          <Route exact path='Blog-SPA/' component={BlogList} />
+          <Route exact path='Blog-SPA/post' component={BlogList} />
+          <Route path='Blog-SPA/about' component={BlogAbout} />
+          <Route path='Blog-SPA/post/:postId' component={BlogArticle} />
         </main> 
     </Router>
   );
