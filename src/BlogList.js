@@ -25,8 +25,6 @@ class BlogList extends Component {
   render() {
     const { post } = this.state;
     const { history } = this.props;
-    console.log(process.env.PUBLIC_URL)
-    console.log(history)
     return (
       <Router>
         <img className='blog__list-img' src={require('./background-image.jpg')} />
