@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Blog-SPA/build/static/css/main.6ad931da.chunk.css",
-    "main.js": "/Blog-SPA/build/static/js/main.408a4505.chunk.js",
-    "main.js.map": "/Blog-SPA/build/static/js/main.408a4505.chunk.js.map",
+    "main.js": "/Blog-SPA/build/static/js/main.81372453.chunk.js",
+    "main.js.map": "/Blog-SPA/build/static/js/main.81372453.chunk.js.map",
     "runtime~main.js": "/Blog-SPA/build/static/js/runtime~main.35109330.js",
     "runtime~main.js.map": "/Blog-SPA/build/static/js/runtime~main.35109330.js.map",
-    "static/js/2.a3599087.chunk.js": "/Blog-SPA/build/static/js/2.a3599087.chunk.js",
-    "static/js/2.a3599087.chunk.js.map": "/Blog-SPA/build/static/js/2.a3599087.chunk.js.map",
+    "static/js/2.285bcfcd.chunk.js": "/Blog-SPA/build/static/js/2.285bcfcd.chunk.js",
+    "static/js/2.285bcfcd.chunk.js.map": "/Blog-SPA/build/static/js/2.285bcfcd.chunk.js.map",
     "index.html": "/Blog-SPA/build/index.html",
-    "precache-manifest.46b71fb9d83a0d5212cb41c4996a1a3b.js": "/Blog-SPA/build/precache-manifest.46b71fb9d83a0d5212cb41c4996a1a3b.js",
+    "precache-manifest.619a8b3fa118c4651d00a91834971186.js": "/Blog-SPA/build/precache-manifest.619a8b3fa118c4651d00a91834971186.js",
     "service-worker.js": "/Blog-SPA/build/service-worker.js",
     "static/css/main.6ad931da.chunk.css.map": "/Blog-SPA/build/static/css/main.6ad931da.chunk.css.map",
     "static/media/background-image.jpg": "/Blog-SPA/build/static/media/background-image.81b52042.jpg"
