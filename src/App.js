@@ -11,9 +11,9 @@ function App() {
     <Router>
         <main className="blog">
           <nav className="blog__nav">
-            <Link className="blog__nav-name" to='/' exact='true'>LYU</Link>
-            <Link className="blog__nav-list" to='/post' exact='true'>List</Link>
-            <Link className="blog__nav-about" to='/about'>About</Link>
+            <Link className="blog__nav-name" to='/Blog-SPA' exact='true'>LYU</Link>
+            <Link className="blog__nav-list" to='/Blog-SPA/post' exact='true'>List</Link>
+            <Link className="blog__nav-about" to='/Blog-SPA/about'>About</Link>
           </nav>
           <Route exact path='Blog-SPA' component={BlogList} />
           <Route exact path='Blog-SPA/' component={BlogList} />
