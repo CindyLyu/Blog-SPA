@@ -15,7 +15,6 @@ function App() {
           <Link className="blog__nav-list" to='/post' exact='true'>List</Link>
           <Link className="blog__nav-about" to='/about'>About</Link>
         </nav>
-        <Route exact path='' component={BlogList} />
         <Route exact path='/' component={BlogList} />
         <Route exact path='/post' component={BlogList} />
         <Route path='/about' component={BlogAbout} />
