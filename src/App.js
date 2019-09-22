@@ -3,12 +3,12 @@ import './index.sass';
 import BlogList from './BlogList';
 import BlogArticle from './BlogArticle';
 import BlogAbout from './BlogAbout';
-import { HashRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 
 function App() {
   return (
-    <Router>
+    <Router basename='Blog-SPA'>
       <main className="blog">
         <nav className="blog__nav">
           <Link className="blog__nav-name" to='/' exact='true'>LYU</Link>
