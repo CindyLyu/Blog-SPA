@@ -107,7 +107,7 @@ class BlogArticle extends Component {
           ) : <div className="blog__article-title">{post.title ? post.title : 'Loading...'}</div> }
           { isEdit ? (
             <div>
-作者：
+              作者：
               <input className="blog__article-editauthor" name="author" value={post.author} onChange={this.handleInputChange} />
             </div>
           ) : (
@@ -118,7 +118,7 @@ class BlogArticle extends Component {
           ) }
           { isEdit ? (
             <div>
-內容：
+              內容：
               <textarea className="blog__article-editbody" name="body" value={post.body} onChange={this.handleInputChange} />
             </div>
           ) : <div className="blog__article-body"><ReactMarkdown source={post.body} /></div> }
