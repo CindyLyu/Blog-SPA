@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { BrowserRouter as Router, withRouter } from "react-router-dom";
-const axios = require('axios');
+import { getPosts } from '../WebAPI';
 
 
 class BlogList extends Component {
@@ -14,10 +14,10 @@ class BlogList extends Component {
   }
 
   componentDidMount() {
-    axios.get('https://qootest.com/posts')
+    getPosts()
       .then(response => 
         this.setState({
-          post: response.data
+          post: response.data.reverse() // 讓之後文章顯示由新到舊
         })
       )
   }
@@ -27,7 +27,7 @@ class BlogList extends Component {
     const { history } = this.props;
     return (
       <Router>
-        <img className='blog__list-img' src={require('./background-image.jpg')} />
+        <img className='blog__list-img' src={require('../background-image.jpg')} />
         <section className="blog__list">
           <div className="blog__list-title">
             <span className="fas fa-list-ul" />

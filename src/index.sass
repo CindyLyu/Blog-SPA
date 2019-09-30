@@ -15,35 +15,37 @@ $red_color: #d68686
   z-index: 2
 
 .blog__nav-name
+  cursor: pointer
   font-size: 24px
   color: white
   &:hover
     color: rgba(255, 255, 255, 0.9)
 
-.blog__nav-list, .blog__nav-about
-  font-size: 20px
+[class^='blog__nav-']:not(.blog__nav-name)
   color: white
+  font-size: 20px
   position: absolute
+  bottom: 15px
   &:hover
     color: rgba(255, 255, 255, 0.9)
 
-.blog__nav-list
-  margin-left: 25px
-  margin-right: 20px
-  bottom: 15px
-  right: 90px
+.blog__nav-about
+  right: 190px
   z-index: 0
 
-.blog__nav-about
-  right: 15px
-  bottom: 15px
+.blog__nav-list
+  right: 120px
   margin-right: 10px
 
-a:hover
-  color: white
-  text-decoration: none
+.blog__nav-addpost
+  right: 15px
+  margin-right: 10px
+  
+[class^='blog__nav']
+  &:hover
+    text-decoration: none
 
-item:not(.blog__nav-name)
+[class^='blog__nav-']:not(.blog__nav-name)
   cursor: pointer
   &:hover
     color: rgba(255, 255, 255, 0.9)
@@ -89,15 +91,77 @@ item:not(.blog__nav-name)
 .blog__article-title
   font-weight: bold
   font-size: 30px
-  margin: 40px 0px
+  margin: 30px 0px
+
+.blog__article-action
+  display: flex
+  padding-right: 10px
+  margin: 30px 0px
+  justify-content: flex-end
+
+.blog__article-edit, .blog__article-delete
+  border: none
+  color: $grey_color
+  &:focus
+    outline: none
+  &:hover
+    color: lighten($grey_color, 10)
+
+.blog__article-delete
+  margin-left: 20px
+
+.fa-edit, .fa-trash-alt
+  margin-right: 5px
 
 .blog__article-author
   color: $red_color
   margin-bottom: 40px
   padding-left: 10px
 
-.blog__article-content
+.blog__article-body
   margin-bottom: 60px
+
+// 編輯文章
+[class^='blog__article-edit']:not(.blog__article-editsubmit):not(.blog__article-edit):not(.blog__article-editbody)
+  margin-bottom: 20px
+  border: none
+  border-bottom: solid 1px lighten($grey_color, 30)
+  width: 100%
+  outline: none
+  padding: 8px 8px
+  margin-top: 5px
+  &:focus
+    border-bottom: solid 2px $red_color
+
+.blog__article-editbody, .blog__addpost-body
+  margin-top: 5px
+  padding: 8px 8px
+  outline: none
+  width: 100%
+  margin-bottom: 20px
+  height: 200px
+  border: solid 1px lighten($grey_color, 30)
+  &:focus
+    border: solid 2px $red_color
+
+.blog__article-editsubmit, .blog__addpost-submit
+  margin-left: 50%
+  transform: translateX(-50%)
+  border: solid 1px lighten($grey_color, 30)
+  margin-bottom: 30px
+  padding: 5px 15px
+  &:hover
+    background-color: $red_color
+    color: white
+    border: solid 1px $red_color
+  &:focus
+    outline: none
+
+.blog__article-action>a.blog__article-canceledit
+  cursor: pointer
+  font-size: 14px
+  &:hover
+    color: $red_color
 
 .fa-user
   margin-right: 10px
@@ -143,10 +207,8 @@ item:not(.blog__nav-name)
   &:hover
     border-color: rgba(102, 102, 102, 1)
 
-
 .blog__list-body-title, .blog__list-body-content, .blog__list-readmore
   color: $grey_color
-
 
 .blog__list-body-title
   font-weight: bold
@@ -155,7 +217,6 @@ item:not(.blog__nav-name)
   white-space: nowrap
   overflow: hidden
   text-overflow: ellipsis
-
 
 .blog__list-body-line
   border: solid 2px $red_color
@@ -177,6 +238,45 @@ item:not(.blog__nav-name)
   display: inline-block
   &:hover
     color: $red_color
+
+// AddPost
+.blog__addpost
+  position: absolute
+  top: 100px
+  left: 50%
+  width: 100%
+  padding: 0px 100px
+  transform: translateX(-50%)
+  & input
+    padding: 20px
+
+.blog__addpost-title
+  font-size: 24px
+  text-align: center
+  color: $grey_color
+  font-weight: bold
+  margin-bottom: 40px
+  
+.fa-plus-square
+  margin-right: 10px
+
+[class^='blog__addpost-']:not(.blog__addpost-title):not(.blog__addpost-submit):not(.blog__addpost-body)
+  width: 100%
+  margin-bottom: 20px
+  border: none
+  border-bottom: solid 1px lighten($grey_color, 30)
+  width: 100%
+  outline: none
+  padding: 8px 8px
+  margin-top: 5px
+  &:focus
+    border-bottom: solid 2px $red_color
+  &::placeholder
+    color: lighten($grey_color, 30)
+
+.blog__addpost-body
+  &::placeholder
+    color: lighten($grey_color, 30)
 
 @media screen and (max-width: 1000px)
   .blog__about
