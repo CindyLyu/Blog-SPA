@@ -2,11 +2,10 @@
 
 import React, { Component, Fragment } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { withRouter } from 'react-router-dom';
-import { getPost, putPost, deletePost } from '../WebAPI';
+import CodeBlock from './CodeBlock';
 
 
-class BlogArticle extends Component {
+class Article extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,21 +15,50 @@ class BlogArticle extends Component {
   }
 
   componentDidMount() {
-    const { history } = this.props;
-    const id = (history.location.pathname).replace('/post/', '');
-    getPost(id)
-      .then(response => this.setState({
-        post: response.data,
-      }));
+    const { match, post, getPost } = this.props;
+    const id = match.params.postId;
+    getPost(id);
+    this.setState({
+      post,
+    });
+  }
+
+  componentDidUpdate(prevProps) {
+    const {
+      history, error, isLoadingDeletePost, isLoadingUpdatePost, post,
+    } = this.props;
+    if (prevProps.post !== post) {
+      this.setState({
+        post,
+      });
+    }
+    if (prevProps.isLoadingDeletePost !== isLoadingDeletePost && !isLoadingDeletePost) {
+      if (error) {
+        alert('刪除失敗，請稍後再試');
+      } else {
+        history.push('/post');
+        alert('刪除成功');
+      }
+    }
+    if (prevProps.isLoadingUpdatePost !== isLoadingUpdatePost && !isLoadingUpdatePost) {
+      if (error) {
+        alert('更新失敗，請稍後再試');
+      } else {
+        this.setState({
+          isEdit: false,
+        });
+      }
+    }
   }
 
   handleEditSwitch = (type) => {
-    const { post, isEdit } = this.state;
+    const { isEdit } = this.state;
+    const { post, getPost } = this.props;
+    getPost(post.id); // dispatch 讓 post 資料更新
     if (type === 'cancel') {
-      getPost(post.id)
-        .then(response => this.setState({
-          post: response.data,
-        }));
+      this.setState({
+        post,
+      });
     }
     this.setState({
       isEdit: !isEdit,
@@ -38,25 +66,15 @@ class BlogArticle extends Component {
   }
 
   handleDelete = () => {
-    const { history } = this.props;
-    const { post } = this.state;
+    const { post, deletePost } = this.props;
     if (window.confirm('確定要刪除嗎')) {
-      deletePost(post.id)
-        .then(() => {
-          alert('刪除成功');
-          history.push('/post');
-        })
-        .catch((err) => {
-          alert('刪除失敗，請稍後再試');
-          console.log(err);
-        });
+      deletePost(post.id);
     }
   }
 
   handleInputChange = (e) => {
     const { post } = this.state;
-    const { value } = e.target;
-    const { name } = e.target;
+    const { value, name } = e.target;
     this.setState({
       post: { ...post, [name]: value },
     });
@@ -65,26 +83,19 @@ class BlogArticle extends Component {
   handleEditSubmit = (e) => {
     e.preventDefault();
     const { post } = this.state;
-    putPost(post.id, post.title, post.author, post.body)
-      .catch((err) => {
-        alert('更新失敗，請稍後再試');
-        console.log(err);
-      });
-    // 看是否要改成新增成功才 setState，需研究要如何在 promise 裡 setState
-    this.setState({
-      isEdit: false,
-    });
+    const { updatePost } = this.props;
+    updatePost(post.id, post.title, post.author, post.body);
   }
 
   render() {
-    const { post, isEdit } = this.state;
+    const { isEdit, post } = this.state;
     return (
       <Fragment>
         <img className="blog__article-img" src="https://fakeimg.pl/1600x600/dbdbdb/?text=picture&font=bebas" alt="substitute" />
         <section className="blog__article">
           <div className="blog__article-action">
             { isEdit
-              ? <a className="blog__article-canceledit" onClick={() => this.handleEditSwitch('cancel')}>取消編輯</a>
+              ? <button className="blog__article-canceledit" onClick={() => this.handleEditSwitch('cancel')}>取消編輯</button>
               : (
                 <div>
                   <button className="blog__article-edit" onClick={this.handleEditSwitch}>
@@ -99,30 +110,37 @@ class BlogArticle extends Component {
               )
             }
           </div>
-          { isEdit ? (
-            <div>
-              標題：
-              <input className="blog__article-edittitle" name="title" value={post.title} onChange={this.handleInputChange} />
-            </div>
-          ) : <div className="blog__article-title">{post.title ? post.title : 'Loading...'}</div> }
-          { isEdit ? (
-            <div>
-              作者：
-              <input className="blog__article-editauthor" name="author" value={post.author} onChange={this.handleInputChange} />
-            </div>
-          ) : (
-            <div className="blog__article-author">
-              <i className="fas fa-user" />
-              {post.author ? post.author : '匿名'}
-            </div>
-          ) }
-          { isEdit ? (
-            <div>
-              內容：
-              <textarea className="blog__article-editbody" name="body" value={post.body} onChange={this.handleInputChange} />
-            </div>
-          ) : <div className="blog__article-body"><ReactMarkdown source={post.body} /></div> }
-          { isEdit ? <button className="blog__article-editsubmit" type="submit" onClick={this.handleEditSubmit}>送出</button> : null }
+          { isEdit
+            ? (
+              <Fragment>
+                <div>
+                標題：
+                  <input className="blog__article-edittitle" name="title" value={post.title} onChange={this.handleInputChange} />
+                </div>
+                <div>
+                作者：
+                  <input className="blog__article-editauthor" name="author" value={post.author} onChange={this.handleInputChange} />
+                </div>
+                <div>
+                內容：
+                  <textarea className="blog__article-editbody" name="body" value={post.body} onChange={this.handleInputChange} />
+                </div>
+                <button className="blog__article-editsubmit" type="submit" onClick={this.handleEditSubmit}>送出</button>
+              </Fragment>
+            )
+            : (
+              <Fragment>
+                <div className="blog__article-title">{ post.title ? post.title : 'Loading...' }</div>
+                <div className="blog__article-author">
+                  <i className="fas fa-user" />
+                  {post.author ? post.author : '匿名'}
+                </div>
+                <div className="blog__article-body">
+                  <ReactMarkdown source={post.body} renderers={{ code: CodeBlock }} />
+                </div>
+              </Fragment>
+            )
+          }
         </section>
       </Fragment>
     );
@@ -130,4 +148,4 @@ class BlogArticle extends Component {
 }
 
 
-export default withRouter(BlogArticle);
+export default Article;

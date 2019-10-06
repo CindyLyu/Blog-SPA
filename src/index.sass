@@ -120,6 +120,8 @@ $red_color: #d68686
 
 .blog__article-body
   margin-bottom: 60px
+  & img
+    max-width: 100%
 
 // 編輯文章
 [class^='blog__article-edit']:not(.blog__article-editsubmit):not(.blog__article-edit):not(.blog__article-editbody)
@@ -130,6 +132,7 @@ $red_color: #d68686
   outline: none
   padding: 8px 8px
   margin-top: 5px
+  color: $grey_color
   &:focus
     border-bottom: solid 2px $red_color
 
@@ -141,6 +144,7 @@ $red_color: #d68686
   margin-bottom: 20px
   height: 200px
   border: solid 1px lighten($grey_color, 30)
+  color: $grey_color
   &:focus
     border: solid 2px $red_color
 
@@ -157,11 +161,15 @@ $red_color: #d68686
   &:focus
     outline: none
 
-.blog__article-action>a.blog__article-canceledit
+.blog__article-action>button.blog__article-canceledit
   cursor: pointer
   font-size: 14px
+  color: $grey_color
+  border: none
   &:hover
     color: $red_color
+  &:focus
+    outline: none
 
 .fa-user
   margin-right: 10px
@@ -269,12 +277,14 @@ $red_color: #d68686
   outline: none
   padding: 8px 8px
   margin-top: 5px
+  color: $grey_color
   &:focus
     border-bottom: solid 2px $red_color
   &::placeholder
     color: lighten($grey_color, 30)
 
 .blog__addpost-body
+  color: $grey_color
   &::placeholder
     color: lighten($grey_color, 30)
 

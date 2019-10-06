@@ -1,28 +1,26 @@
 /* eslint-disable react/prop-types */
 
 import React, { Component } from 'react';
-import { BrowserRouter as Router, withRouter } from 'react-router-dom';
-import { getPosts } from '../WebAPI';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 
-class BlogList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      post: [],
-    };
+class List extends Component {
+  componentDidMount() {
+    const { getPostList } = this.props;
+    getPostList();
   }
 
-  componentDidMount() {
-    getPosts()
-      .then(response => this.setState({
-        post: response.data.reverse(), // 讓之後文章顯示由新到舊
-      }));
+  componentDidUpdate(prevProps) {
+    const { isLoadingGetPostList, error } = this.props;
+    if (prevProps.isLoadingGetPostList !== isLoadingGetPostList && !isLoadingGetPostList) {
+      if (error) {
+        alert('讀取資料失敗，請稍後再試');
+      }
+    }
   }
 
   render() {
-    const { post } = this.state;
-    const { history } = this.props;
+    const { history, postList } = this.props;
     return (
       <Router>
         <img className="blog__list-img" src={require('../background-image.jpg')} alt="substitute" />
@@ -32,15 +30,15 @@ class BlogList extends Component {
               文章列表
           </div>
           {
-              post.map(item => (
-                <div className="blog__list-body" key={item.id} onClick={() => { history.push(`/post/${item.id}`); }}>
-                  <div className="blog__list-body-title">{item.title}</div>
-                  <div className="blog__list-body-line" />
-                  <div className="blog__list-body-content">{item.body}</div>
-                  <div className="blog__list-readmore">Read more</div>
-                </div>
-              ))
-            }
+            postList.map(item => (
+              <div className="blog__list-body" key={item.id} onClick={() => { history.push(`/post/${item.id}`); }}>
+                <div className="blog__list-body-title">{item.title}</div>
+                <div className="blog__list-body-line" />
+                <div className="blog__list-body-content">{item.body}</div>
+                <div className="blog__list-readmore">Read more</div>
+              </div>
+            ))
+          }
         </section>
       </Router>
     );
@@ -48,4 +46,4 @@ class BlogList extends Component {
 }
 
 
-export default withRouter(BlogList);
+export default List;

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 
 
-function BlogAbout() {
+function About() {
   return (
     <Fragment>
       <section className="blog__about">
@@ -13,4 +13,4 @@ function BlogAbout() {
 }
 
 
-export default BlogAbout;
+export default About;

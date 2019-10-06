@@ -1,9 +1,7 @@
 import React, { Fragment, Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import { addPost } from '../WebAPI';
 
 
-class BlogAbout extends Component {
+class AddPost extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,17 +21,22 @@ class BlogAbout extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { history } = this.props;
+    const { createPost } = this.props;
     const { title, author, body } = this.state;
-    addPost(title, author, body)
-      .then(() => {
+    createPost(title, author, body);
+  }
+
+  componentDidUpdate(prevProps) {
+    const { history, isLoadingCreatePost, error } = this.props;
+    if (prevProps.isLoadingCreatePost !== isLoadingCreatePost && !isLoadingCreatePost) {
+      if (error) {
+        alert('新增失敗，請稍後再試');
+        console.log(error);
+      } else {
         alert('新增成功');
         history.push('/post');
-      })
-      .catch((err) => {
-        alert('新增失敗，請稍後再試');
-        console.log(err);
-      });
+      }
+    }
   }
 
   render() {
@@ -66,4 +69,4 @@ class BlogAbout extends Component {
 }
 
 
-export default withRouter(BlogAbout);
+export default AddPost;
