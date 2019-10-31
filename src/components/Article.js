@@ -110,6 +110,7 @@ class Article extends Component {
               )
             }
           </div>
+
           { isEdit
             ? (
               <Fragment>

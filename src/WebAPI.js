@@ -1,20 +1,22 @@
 const axios = require('axios');
 
-const baseUrl = 'https://qootest.com/posts/';
+const instance = axios.create({
+  baseURL: 'https://qootest.com/posts/',
+})
 
-export const getPosts = () => axios.get(`${baseUrl}?_sort=id&_order=desc`);
+export const getPosts = () => instance.get(`?_sort=id&_order=desc`);
 
-export const getPost = postId => axios.get(`${baseUrl}${postId}`);
+export const getPost = postId => instance.get(`${postId}`);
 
-export const updatePost = (postId, title, author, body) => axios.put(`${baseUrl}${postId}`, {
+export const updatePost = (postId, title, author, body) => instance.put(`${postId}`, {
                                                               title,
                                                               author,
                                                               body,
                                                             });
 
-export const deletePost = postId => axios.delete(`${baseUrl}${postId}`);
+export const deletePost = postId => instance.delete(`${postId}`);
 
-export const createPost = (title, author, body) => axios.post(`${baseUrl}`, {
+export const createPost = (title, author, body) => instance.post('/', {
                                                       title,
                                                       author,
                                                       body,
