@@ -14,7 +14,7 @@ class App extends Component {
         <main className="blog">
           <nav className="blog__nav">
             <Link className="blog__nav-name" to="/" exact="true">LYU</Link>
-            <Link className="blog__nav-about" to="about" exact="true">About</Link>
+            <Link className="blog__nav-about" to="/about" exact="true">About</Link>
             <Link className="blog__nav-list" to="/post" exact="true">List</Link>
             <Link className="blog__nav-addpost" to="/addpost" exact="true">Add Post</Link>
           </nav>
